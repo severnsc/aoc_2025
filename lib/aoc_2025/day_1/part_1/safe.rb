@@ -5,6 +5,12 @@ class Safe
 
   attr_accessor :dial_range, :dial_pointing_at
 
+  def distance_to(value)
+    raise RangeError unless dial_range.include? value
+
+    { "L": (dial_pointing_at - value) % numbers_on_dial, "R": (value - dial_pointing_at) % numbers_on_dial }
+  end
+
   def rotate_dial(instruction)
     direction = instruction[0]
     amount = instruction[1..].to_i
