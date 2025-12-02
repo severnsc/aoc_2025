@@ -4,7 +4,7 @@ module DayOne
     require_relative "part_1/secret_code"
 
     def self.solve
-      file = File.read "part_1/input.csv"
+      file = File.read "input.csv"
       instructions = file.each_line.map(&:chomp)
       safe = Safe.new dial_range: 0..99, dial_pointing_at: 50
       secret_code = SecretCode.new safe:, secret_number: 0
