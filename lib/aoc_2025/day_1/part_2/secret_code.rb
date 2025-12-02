@@ -10,10 +10,9 @@ module DayOne::PartTwo
       instructions.each do |instruction|
         direction = instruction[0]
         instruction_distance = instruction[1..].to_i
-        while instruction_distance >= safe.numbers_on_dial
-          self.value += 1
-          instruction_distance -= safe.numbers_on_dial
-        end
+        full_rotations = instruction_distance / safe.numbers_on_dial
+        self.value += full_rotations
+        instruction_distance -= full_rotations * safe.numbers_on_dial
         if safe.dial_pointing_at != secret_number && instruction_distance >= distance_to_secret_number[direction]
           self.value += 1
         end
