@@ -16,3 +16,5 @@ group :development do
   gem "guard" # NOTE: this is necessary in newer versions
   gem "guard-minitest"
 end
+
+gem "activemodel", "~> 8.1"
