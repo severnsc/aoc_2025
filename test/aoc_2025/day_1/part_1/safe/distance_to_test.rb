@@ -6,7 +6,7 @@ class Safe::DistanceToTest < Minitest::Test
   end
 
   def test_distance_to_self_is_zero
-    assert_equal({ "L": 0, "R": 0 }, @safe.distance_to(50))
+    assert_equal({ "L" => 0, "R" => 0 }, @safe.distance_to(50))
   end
 
   def test_distance_to_out_of_bounds_raises_error
@@ -16,10 +16,10 @@ class Safe::DistanceToTest < Minitest::Test
   end
 
   def test_distance_to_one_less
-    assert_equal({ "L": 1, "R": 99 }, @safe.distance_to(49))
+    assert_equal({ "L" => 1, "R" => 99 }, @safe.distance_to(49))
   end
 
   def test_distance_to_one_greater
-    assert_equal({ "L": 99, "R": 1 }, @safe.distance_to(51))
+    assert_equal({ "L" => 99, "R" => 1 }, @safe.distance_to(51))
   end
 end

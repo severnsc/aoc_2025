@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "active_model"
 require_relative "aoc_2025/version"
 require_relative "aoc_2025/day_1"
 

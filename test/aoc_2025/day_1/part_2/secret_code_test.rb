@@ -1,12 +1,15 @@
 require "test_helper"
 
-module DayOne::PartOne
+module DayOne::PartTwo
   class SecretCodeTest < Minitest::Test
-    def test_sets_safe
-      safe = Safe.new
-      secret_code = SecretCode.new(safe:)
+    def setup
+      @safe = Safe.new dial_range: 0..99, dial_pointing_at: 50
+    end
 
-      assert_equal safe, secret_code.safe
+    def test_sets_safe
+      secret_code = SecretCode.new safe: @safe
+
+      assert_equal @safe, secret_code.safe
     end
 
     def test_sets_secret_number
