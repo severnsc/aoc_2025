@@ -1,7 +1,6 @@
 module DayTwo
-  module PartOne
-    require_relative "part_1/product_id_validator"
-    require_relative "part_1/product_id_aggregator"
+  module PartTwo
+    require_relative "part_2/product_id_validator"
 
     def self.solve
       p ProductIdAggregator.new(ProductIdValidator).aggregate ranges

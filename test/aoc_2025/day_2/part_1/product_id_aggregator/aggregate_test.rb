@@ -2,7 +2,7 @@ require "test_helper"
 
 class ProductIdAggregator::AggregateTest < Minitest::Test
   def setup
-    @aggregator = ProductIdAggregator.new
+    @aggregator = ProductIdAggregator.new ProductIdValidator
   end
 
   def test_empty_returns_zero
