@@ -3,6 +3,7 @@
 require "active_model"
 require_relative "aoc_2025/version"
 require_relative "aoc_2025/day_1"
+require_relative "aoc_2025/day_2"
 
 module Aoc2025
   class Error < StandardError; end
