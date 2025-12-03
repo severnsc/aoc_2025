@@ -1,5 +1,5 @@
 module DayThree
-  module PartOne
+  module PartTwo
     require_relative "part_1/battery_bank"
     require_relative "part_1/escalator_power"
 
@@ -9,7 +9,7 @@ module DayThree
     end
 
     def self.battery_banks
-      battery_bank_specs.map { |spec| BatteryBank.new batteries: spec, battery_limit: 2 }
+      battery_bank_specs.map { |spec| BatteryBank.new batteries: spec, battery_limit: 12 }
     end
 
     def self.battery_bank_specs
