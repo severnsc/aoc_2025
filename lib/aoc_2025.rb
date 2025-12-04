@@ -11,5 +11,3 @@ module Aoc2025
   class Error < StandardError; end
   # Your code goes here...
 end
-
-DayFour::PartOne.solve_part_two
