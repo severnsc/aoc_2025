@@ -4,13 +4,21 @@ class Grid
   NEIGHBOR_COUNT = 8
 
   attr_reader :accessible_rows_of_paper, :rows
-  attr_accessor :empty_space, :roll_of_paper, :max_adjacent_rolls_of_paper
+  attr_accessor :empty_space, :roll_of_paper, :max_adjacent_rolls_of_paper, :removed_roll_of_paper
 
   def initialize(attrs)
     @rows = attrs[:rows] || []
     super attrs.reject { |key, _| key == "rows" }
     set_rolls_of_paper
     set_accessible_rows_of_paper
+  end
+
+  def remove_accessible_rolls_of_paper
+    new_rows = rows
+    accessible_rows_of_paper.each do |coordinate|
+      new_rows[coordinate.row][coordinate.col] = removed_roll_of_paper
+    end
+    Grid.new empty_space:, roll_of_paper:, max_adjacent_rolls_of_paper:, removed_roll_of_paper:, rows: new_rows
   end
 
   def rows=(rows)

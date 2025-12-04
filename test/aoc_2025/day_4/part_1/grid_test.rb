@@ -24,4 +24,10 @@ class GridTest < Minitest::Test
 
     assert_equal 3, grid.max_adjacent_rolls_of_paper
   end
+
+  def test_sets_removed_roll_of_paper
+    grid = Grid.new removed_roll_of_paper: "x"
+
+    assert_equal "x", grid.removed_roll_of_paper
+  end
 end
