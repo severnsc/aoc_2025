@@ -41,4 +41,23 @@ class Grid::RemoveAccessibleRollsOfPaperTest < Minitest::Test
 
     assert_equal 13, grid_string.count(new_grid.removed_roll_of_paper)
   end
+
+  def test_aoc_part_two
+    @grid.rows = [
+      %w[. . @ @ . @ @ @ @ .],
+      %w[@ @ @ . @ . @ . @ @],
+      %w[@ @ @ @ @ . @ . @ @],
+      %w[@ . @ @ @ @ . . @ .],
+      %w[@ @ . @ @ @ @ . @ @],
+      %w[. @ @ @ @ @ @ @ . @],
+      %w[. @ . @ . @ . @ @ @],
+      %w[@ . @ @ @ . @ @ @ @],
+      %w[. @ @ @ @ @ @ @ @ .],
+      %w[@ . @ . @ @ @ . @ .]
+    ]
+    current_grid = @grid
+    current_grid = current_grid.remove_accessible_rolls_of_paper while current_grid.accessible_rows_of_paper.any?
+
+    assert_equal 43, current_grid.rows.map(&:join).join.count(current_grid.removed_roll_of_paper)
+  end
 end
