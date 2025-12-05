@@ -7,6 +7,11 @@ module DayFive
       ids_to_test.filter { |id| db.fresh? id }.count
     end
 
+    def self.solve_part_two
+      db = IngredientsDb.new(fresh_ranges:)
+      db.total_fresh_ingredients_ids
+    end
+
     def self.fresh_ranges
       lines[...separator_index].map do |range_string|
         min, max = range_string.split "-"
@@ -32,3 +37,5 @@ module DayFive
     end
   end
 end
+
+p DayFive::PartOne.solve_part_two
