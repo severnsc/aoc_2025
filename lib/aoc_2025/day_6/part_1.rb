@@ -7,6 +7,11 @@ module DaySix
       p homework.grand_total
     end
 
+    def self.solve_part_two
+      homework = CephalapodHomework.new(numbers:, operators:)
+      p homework.rl_grand_total
+    end
+
     def self.numbers
       lines[...-1]
     end
