@@ -37,5 +37,3 @@ module DayFive
     end
   end
 end
-
-p DayFive::PartOne.solve_part_two
