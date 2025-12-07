@@ -41,31 +41,66 @@ class TachyonManifold
   attr_accessor :beam, :diagram, :empty, :splitter, :start
 
   def total_beam_splits
-    traversed_diagram = traverse_diagram(TachyonManifoldDiagram.new(diagram), start_position)
-    traversed_diagram.coordinates_for(splitter).filter do |coordinate|
-      [beam, start].include? traversed_diagram.object_at(coordinate.above)
-    end.count
+    counts = Array.new(diagram.first.length, 0)
+    counts[diagram.first.index(start)] = 1
+    tachyon_diagram = TachyonManifoldDiagram.new diagram
+    position = start_position.below
+    object = tachyon_diagram.object_at position
+    beam_splits = 0
+    while object
+      case object
+      when empty
+        position = Coordinate.new row: position.row + 1, col: counts.index(1)
+      when splitter
+        if counts[position.col].positive?
+          beam_splits += 1
+          counts[position.col - 1] = 1
+          counts[position.col.next] = 1
+          counts[position.col] = 0
+        end
+        next_splitter_col = diagram[position.row][(position.col + 2)..].index(splitter)
+        position = if next_splitter_col
+                     Coordinate.new row: position.row, col: next_splitter_col + position.col + 2
+                   else
+                     Coordinate.new row: position.row, col: counts.index(1)
+                   end
+      end
+      object = tachyon_diagram.object_at position
+    end
+    beam_splits
+  end
+
+  def total_timelines
+    counts = Array.new(diagram.first.length, 0)
+    counts[diagram.first.index(start)] = 1
+    tachyon_diagram = TachyonManifoldDiagram.new diagram
+    position = start_position.below
+    object = tachyon_diagram.object_at position
+    while object
+      case object
+      when empty
+        position = Coordinate.new row: position.row + 1, col: counts.index(1)
+      when splitter
+        if counts[position.col].positive?
+          counts[position.col - 1] += counts[position.col]
+          counts[position.col.next] += counts[position.col]
+          counts[position.col] = 0
+        end
+        next_splitter_col = diagram[position.row][(position.col + 2)..].index(splitter)
+        position = if next_splitter_col
+                     Coordinate.new row: position.row, col: next_splitter_col + position.col + 2
+                   else
+                     Coordinate.new row: position.row, col: counts.index(1)
+                   end
+      end
+      object = tachyon_diagram.object_at position
+    end
+    counts.sum
   end
 
   private
 
   def start_position
     Coordinate.new row: 0, col: diagram.first.index(start)
-  end
-
-  def traverse_diagram(diagram, position)
-    next_position = position.below
-    next_position_object = diagram.object_at next_position
-    case next_position_object
-    when empty
-      traverse_diagram diagram.transform_via([[next_position, beam]]), next_position
-    when splitter
-      traverse_diagram(
-        traverse_diagram(diagram.transform_via([[next_position.left, beam], [next_position.right, beam]]),
-                         next_position.left), next_position.right
-      )
-    else
-      diagram
-    end
   end
 end
