@@ -1,14 +1,29 @@
 Point = Struct.new :x, :y, :z do
+  def self.from_coordinates(coordinates)
+    new x: coordinates[0], y: coordinates[1], z: coordinates[2]
+  end
+
   def distance_from(point)
-    Math.sqrt((x - point.x)**2 + (y - point.y)**2 + (z - point.z)**2)
+    (x - point.x)**2 + (y - point.y)**2 + (z - point.z)**2
   end
 end
 ClosestPairResult = Struct.new :distance, :points
+Pair = Struct.new :a, :b
 
 class Graph
   include ActiveModel::Model
 
   attr_accessor :points
+
+  def calculate_all_pair_distances
+    distances = {}
+    points.each_with_index do |point, index|
+      (index.next..(points.length - 1)).each do |n|
+        distances[point.distance_from points[n]] = Pair.new(a: point, b: points[n])
+      end
+    end
+    distances
+  end
 
   def find_closest_pair
     return ClosestPairResult.new distance: Float::INFINITY, points: [] if points.nil? || points.length < 2
