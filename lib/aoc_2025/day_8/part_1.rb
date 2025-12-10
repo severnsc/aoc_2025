@@ -72,7 +72,7 @@ module DayEight
     end
 
     def self.points
-      coordinates.map { |coordinates| Point.from_coordinates coordinates }
+      coordinates.map { |coordinates| Point.from_3d_coordinates coordinates }
     end
 
     def self.initial_circuits
@@ -105,7 +105,7 @@ module DayEight
     end
 
     def self.aoc_points
-      aoc_input.map { |coordinates| Point.from_coordinates coordinates }
+      aoc_input.map { |coordinates| Point.from_3d_coordinates coordinates }
     end
 
     def self.aoc_circuits
@@ -113,5 +113,3 @@ module DayEight
     end
   end
 end
-
-DayEight::PartOne.solve_part_two

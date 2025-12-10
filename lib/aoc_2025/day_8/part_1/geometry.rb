@@ -1,5 +1,13 @@
 Point = Struct.new :x, :y, :z do
-  def self.from_coordinates(coordinates)
+  def self.from_coordinates(x, y, z = 0)
+    new x:, y:, z:
+  end
+
+  def self.from_2d_coordinates(coordinates)
+    new x: coordinates[0], y: coordinates[1], z: 0
+  end
+
+  def self.from_3d_coordinates(coordinates)
     new x: coordinates[0], y: coordinates[1], z: coordinates[2]
   end
 
