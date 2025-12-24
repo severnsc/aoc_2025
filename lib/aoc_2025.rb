@@ -12,6 +12,7 @@ require_relative "aoc_2025/day_7"
 require_relative "aoc_2025/day_8"
 require_relative "aoc_2025/day_9"
 require_relative "aoc_2025/day_10"
+require_relative "aoc_2025/day_11"
 
 module Aoc2025
   class Error < StandardError; end

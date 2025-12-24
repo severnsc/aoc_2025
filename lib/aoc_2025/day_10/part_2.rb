@@ -18,5 +18,3 @@ module DayTen
     end
   end
 end
-
-DayTen::PartTwo.solve
