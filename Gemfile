@@ -18,3 +18,5 @@ group :development do
 end
 
 gem "activemodel", "~> 8.1"
+
+gem "matrix", "~> 0.4.3"

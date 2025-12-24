@@ -1,9 +1,8 @@
 class FactoryMachineSpec
   include ActiveModel::Model
-  attr_accessor :button_wiring_schematics, :indicator_lights
+  attr_accessor :button_wiring_schematics, :indicator_lights, :joltage_requirements
 
-  def fewest_button_presses
-    # final_state = [false, true, true, false]
+  def fewest_indicator_light_button_presses
     done = false
     buttons_to_press = 1
     while buttons_to_press < button_wiring_schematics.length
@@ -21,10 +20,22 @@ class FactoryMachineSpec
     buttons_to_press
   end
 
+  def fewest_joltage_indicator_button_presses
+    button_values = button_wiring_schematics.map { |schematic| convert_to_number schematic }
+  end
+
   private
 
   def candidate_buttons
     button_wiring_schematics.filter { |schematic| schematic.intersect? final_state }
+  end
+
+  def convert_to_number(schematic)
+    digits = Array.new joltage_requirements.length, 0
+    schematic.each do |place|
+      digits[place] = 1
+    end
+    digits.join.to_i
   end
 
   def final_state
