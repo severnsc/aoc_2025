@@ -11,6 +11,14 @@ class DAG
     ways[destination]
   end
 
+  def paths_following(verticies)
+    self.graph = {}
+    self.indegrees = {}
+    build_indegrees
+    build_graph
+    p graph
+  end
+
   private
 
   attr_accessor :graph, :indegrees, :ways

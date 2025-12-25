@@ -35,6 +35,14 @@ class DAG::PathsBetweenTest < Minitest::Test
     assert_equal 5, @dag.paths_between(:you, :out)
   end
 
+  def test_part_two
+    @dag.edges = part_two_edges
+
+    path_one = [@dag.paths_between("svr", "fft"), @dag.paths_between("fft", "dac"), @dag.paths_between("dac", "out")]
+    path_two = [@dag.paths_between("svr", "dac"), @dag.paths_between("dac", "fft"), @dag.paths_between("fft", "out")]
+    assert_equal 2, path_one.reduce(1, :*) + path_two.reduce(1, :*)
+  end
+
   private
 
   def aoc_input
@@ -57,5 +65,32 @@ class DAG::PathsBetweenTest < Minitest::Test
       %i[hhh iii],
       %i[iii out]
     ]
+  end
+
+  def part_two_edges
+    edges = []
+    part_two_input.lines.map(&:chomp).each do |line|
+      origin, *destinations = line.split(" ").map { |s| s[..2] }
+      destinations.each do |destination|
+        edges << [origin, destination]
+      end
+    end
+    edges
+  end
+
+  def part_two_input
+    "svr: aaa bbb
+aaa: fft
+fft: ccc
+bbb: tty
+tty: ccc
+ccc: ddd eee
+ddd: hub
+hub: fff
+eee: dac
+dac: fff
+fff: ggg hhh
+ggg: out
+hhh: out"
   end
 end
